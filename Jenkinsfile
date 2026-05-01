@@ -14,9 +14,15 @@ pipeline {
             }
         }
 
+        stage('Clean Old Containers') {
+            steps {
+                bat 'docker rm -f todo-backend || exit 0'
+                bat 'docker rm -f todo-frontend || exit 0'
+            }
+        }
+
         stage('Run Containers') {
             steps {
-                bat 'docker compose down'
                 bat 'docker compose up -d'
             }
         }
