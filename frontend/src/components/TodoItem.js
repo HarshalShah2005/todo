@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API from '../api';
 
 const TodoItem = ({ todo, onUpdate, onDelete, token }) => {
   const handleToggle = async () => {
     try {
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/api/todos/${todo._id}`,
+        `${API}/api/todos/${todo._id}`,
         { completed: !todo.completed },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -21,7 +22,7 @@ const TodoItem = ({ todo, onUpdate, onDelete, token }) => {
     if (window.confirm('Are you sure you want to delete this todo?')) {
       try {
         await axios.delete(
-          `${process.env.REACT_APP_API_URL}/api/todos/${todo._id}`,
+          `${API}/api/todos/${todo._id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

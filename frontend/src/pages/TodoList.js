@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
+import API from '../api';
 import { AuthContext } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
 import AddTodo from '../components/AddTodo';
@@ -30,7 +31,7 @@ const TodoList = () => {
     setError('');
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/todos`,
+        `${API}/api/todos`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -52,7 +53,7 @@ const TodoList = () => {
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/todos/search/${searchQuery}`,
+        `${API}/api/todos/search/${searchQuery}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API from '../api';
 
 const AddTodo = ({ onTodoAdded, token }) => {
   const [title, setTitle] = useState('');
@@ -19,7 +20,7 @@ const AddTodo = ({ onTodoAdded, token }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/todos`,
+        `${API}/api/todos`,
         { title, description },
         {
           headers: { Authorization: `Bearer ${token}` },

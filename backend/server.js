@@ -9,7 +9,10 @@ const todoRoutes = require('./routes/todo');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  credentials: true
+}));
 app.use(express.json());
 
 // Database connection

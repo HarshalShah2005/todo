@@ -16,6 +16,24 @@ router.get('/', async (req, res) => {
   }
 });
 
+// ✅ SEARCH ROUTE (MUST BE BEFORE :id)
+router.get('/search/:query', async (req, res) => {
+  try {
+    const query = req.params.query;
+    const todos = await Todo.find({
+      userId: req.userId,
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { description: { $regex: query, $options: 'i' } },
+      ],
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json(todos);
+  } catch (error) {
+    res.status(500).json({ message: 'Error searching todos', error: error.message });
+  }
+});
+
 // Get single todo
 router.get('/:id', async (req, res) => {
   try {
@@ -87,24 +105,6 @@ router.delete('/:id', async (req, res) => {
     res.status(200).json({ message: 'Todo deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Error deleting todo', error: error.message });
-  }
-});
-
-// Search todos
-router.get('/search/:query', async (req, res) => {
-  try {
-    const query = req.params.query;
-    const todos = await Todo.find({
-      userId: req.userId,
-      $or: [
-        { title: { $regex: query, $options: 'i' } },
-        { description: { $regex: query, $options: 'i' } },
-      ],
-    }).sort({ createdAt: -1 });
-
-    res.status(200).json(todos);
-  } catch (error) {
-    res.status(500).json({ message: 'Error searching todos', error: error.message });
   }
 });
 
