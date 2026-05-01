@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 // 🔥 HARDCODED API (VERY IMPORTANT)
-const API = "http://100.54.215.23:5000";
+const API = "http://54.161.149.107:5000";
 
 export const AuthContext = createContext();
 
